@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MovieController!{% endblock %}
+
+{% block body %}
+<section class="movies container py-2">
+    <h3 class="text-center">Liste des films</h3>
+    <div class=" movie_list">
+        <div class="row">
+    {% for movie in movies %}
+            <div class="col-md-3 my-4">
+               <div class="card">
+                    <img src="{{movie.image}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{movie.name}}</h5>
+                        <p class="card-text">{{movie.description}}</p>
+                        <a href="{{path('app_show',{id:movie.id})}}" class="btn btn-primary">Détails</a>
+                    </div>
+                </div> 
+            </div>
+    {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
