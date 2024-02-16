@@ -7,10 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints  as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 #[ORM\Table('movies')]
-
+#[ORM\HasLifecycleCallbacks]
 
 class Movie
 {
@@ -18,30 +19,52 @@ class Movie
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
-
+   
+   
     #[ORM\Column(length: 255)]
     private ?string $description = null;
-
+  
+    
+    
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $release_date = null;
-
+    
+    
+    
     #[ORM\Column]
     private ?int $rate = null;
 
+   
+    #[Assert\Type(type: Types::DATE_MUTABLE)]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
+    
 
+    #[Assert\Type(type: Types::DATE_MUTABLE)]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
+   
+   
     #[ORM\ManyToOne(inversedBy: 'movies')]
     private ?Category $category = null;
+
+    
+    
+    #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies')]
+    private Collection $actors;
+
+    public function __construct()
+    {
+        $this->actors = new ArrayCollection();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -142,5 +165,40 @@ class Movie
         return $this;
     }
 
+    /**
+     * @return Collection<int, Actor>
+     */
+    public function getActors(): Collection
+    {
+        return $this->actors;
+    }
+
+    public function addActor(Actor $actor): static
+    {
+        if (!$this->actors->contains($actor)) {
+            $this->actors->add($actor);
+        }
+
+        return $this;
+    }
+
+    public function removeActor(Actor $actor): static
+    {
+        $this->actors->removeElement($actor);
+
+        return $this;
+    }
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function timestamp(){
+        // on met à jour le timestamp chaque fois qu'on modifie un champ de l'entité
+         if (is_null($this->created_at)) {
+            # code...
+            $this->setCreatedAt(new \DateTime());
+
+         }
+         $this->setUpdatedAt(new \DateTime());
+
+    }
 
 }

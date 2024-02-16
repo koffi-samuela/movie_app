@@ -4,10 +4,36 @@
 
 <section id="details" class="container">
 
-<h4 class="text-center">Details du film</h4>
-    <p>{{movie.name}}</p>
-    <p>{{movie.description}}</p>
+<h5 class="text-center my-3">Details du film {{movie.name}}</h5>
     {# <p>{{movie.release_date}}</p> #}
+    <div class="row my-4">  
+            <div class="col-md-9 mx-auto">
+            
+                <div class="card mb-3 bg-dark" >
+                    <div class="row g-0 ">
+                        <div class="col-md-4">
+                        <img src="{{movie.image}}" class="img-fluid rounded-start" alt="...">
+                            {# <a  class="btn btn-primary" href="{{path('app_movie')}}">Retour</a> #}
+                        </div>
+                        <div class="col-md-8">
+                        <div class="card-body ">
+                            <h5 class="card-title">{{movie.name}}</h5>
+                            <p class="card-text"><b>Catégorie : </b>{{movie.category.name}}</p>
+                            <p class="card-text">{{movie.description}}</p>
+                            {% for actor in movie.actors %}
+                                <p class="card-text">{{ actor.name }}</p>
+                            {% endfor %}
+                            {# {{ dump(movie.category.name)}} #}
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <a href="{{path('app_movie')}}">Retour</a>
+                            <a href="{{path('app_delete',{id:movie.id})}}">Supprimer</a>
+                            <a href="{{path('app_edit',{id:movie.id})}}">Editer</a>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+    </div>
 </section>
 
 {% endblock %}

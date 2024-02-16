@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+
+        <div class="row justify-content-center">
+        <div class="col-md-6">
+                {{ form_start(formcreate,{'attr': {'novalidate':'novalidate'} }) }}
+                                {{ form_widget(formcreate) }}
+                                    <button type="submit" class="btn btn-primary waves-effect right">Valider</button>
+                {{ form_end(formcreate) }} 
+        </div>
+        </div>
+</div>
+{% endblock %}

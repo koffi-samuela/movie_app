@@ -20,6 +20,16 @@ class MovieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Movie::class);
     }
+    public function findByActor(int $id) : array{
+        return $this->createQueryBuilder('m')
+        ->select("a.name, m.name")
+        ->leftJoin("m.actors", "a")
+        ->andWhere("a.id = :id")
+        -> setParameter('id',$id)
+        ->getQuery()
+        ->getResult()
+        ;
+    }
 
 //    /**
 //     * @return Movie[] Returns an array of Movie objects

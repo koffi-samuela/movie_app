@@ -12,12 +12,13 @@ class AppFixturesCategory extends Fixture
 {
     public function load(ObjectManager $manager): void
     { 
-        $categories = ['Action', 'Comédie','Drame',"Science-fiction","Thriller"];
+        $categories = ['Action', 'Comédie','Drame','Science-fiction','Thriller'];
         // On utilise le faker pour générer des données pseudo-aléa
         // $faker = Faker::create('fr_FR');
         for ($i=0 ;$i<5 ; $i++){
             $category = new Category();
             $category->setName($categories[$i]);
+            $this->addReference('category_' . $i, $category);
             $manager->persist($category);
     }
         // $product = new Product();

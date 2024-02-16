@@ -14,7 +14,8 @@ class AppFixturesActor extends Fixture
         $faker = Faker::create('fr_FR');
         for ($i=0 ;$i<20 ; $i++){
             $actor = new Actor();
-            $actor->setName($faker->name);
+            $actor->setName($faker->name);           
+            $this->addReference('actor_' . $i, $actor);
             $manager->persist($actor);
     }
         // $product = new Product();
