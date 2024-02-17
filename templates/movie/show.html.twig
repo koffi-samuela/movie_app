@@ -25,9 +25,9 @@
                             {% endfor %}
                             {# {{ dump(movie.category.name)}} #}
                             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            <a href="{{path('app_movie')}}">Retour</a>
-                            <a href="{{path('app_delete',{id:movie.id})}}">Supprimer</a>
-                            <a href="{{path('app_edit',{id:movie.id})}}">Editer</a>
+                            <a href="{{path('app_movie_index')}}">Retour</a>
+                            <a href="{{path('app_movie_delete',{id:movie.id})}}">Supprimer</a>
+                            <a href="{{path('app_movie_edit',{id:movie.id})}}">Editer</a>
                         </div>
                         </div>
                     </div>

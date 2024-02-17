@@ -19,7 +19,7 @@ class AppFixturesMovie extends Fixture
             $movie->setDescription($faker->realText());
             $movie ->setImage($faker->imageUrl);
             $movie->setCategory($this->getReference('category_' .$faker->numberBetween(0,4)));
-            $movie->addActor($this->getReference('actor_' .$faker->numberBetween(1,20)));
+            $movie->addActor($this->getReference('actor_' .$faker->numberBetween(0,19)));
             $manager->persist($movie);
     }
         // $product = new Product();
@@ -28,9 +28,10 @@ class AppFixturesMovie extends Fixture
         $manager->flush();
     }
     public function getDependencies(){
-        return (
+        return [
             AppFixturesCategory::class 
-        ) ;
+        ];
+        
     }
 }
 

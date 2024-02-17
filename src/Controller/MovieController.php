@@ -14,12 +14,16 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/movies', name: 'app_movie')]
-#[IsGranted('ROLE_ADMIN')]
+// #[IsGranted('ROLE_ADMIN')]
 class MovieController extends AbstractController
 {
     #[Route('/', name: '_index')]
     public function index(MovieRepository $movieRepository): Response
     {
+        $currentUser = $this->getUser(); // Pour vérifier que l'utilisateur est connecté sinon redirection
+        // $this->denyAccessUnlessGranted('ROLE');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+        // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         // dd($movieRepository ->findByActor(28));
         // $category = $categoryRepository->find(9);
         return $this->render('movie/index.html.twig', [

@@ -12,6 +12,8 @@ class AppFixturesCategory extends Fixture
 {
     public function load(ObjectManager $manager): void
     { 
+        // $faker = Faker::create('fr_FR');
+
         $categories = ['Action', 'Comédie','Drame','Science-fiction','Thriller'];
         // On utilise le faker pour générer des données pseudo-aléa
         // $faker = Faker::create('fr_FR');

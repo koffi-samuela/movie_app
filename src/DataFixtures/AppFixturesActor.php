@@ -23,4 +23,5 @@ class AppFixturesActor extends Fixture
 
         $manager->flush();
     }
+    
 }
