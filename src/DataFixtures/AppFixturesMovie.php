@@ -10,6 +10,7 @@ class AppFixturesMovie extends Fixture
     public function load(ObjectManager $manager): void
     { 
         $faker = \Faker\Factory::create('fr_FR');
+        
         for ($i=0 ;$i<20 ; $i++){
             $movie = new Movie();
             $movie->setName($faker->name);
@@ -22,6 +23,7 @@ class AppFixturesMovie extends Fixture
             $movie->addActor($this->getReference('actor_' .$faker->numberBetween(0,19)));
             $manager->persist($movie);
     }
+
         // $product = new Product();
         // $manager->persist($product);
 
